@@ -1,0 +1,30 @@
+apiVersion: apps/v1        
+
+kind: Deployment        
+metadata:                 
+  name: nginx-dep            
+  namespace: zws
+  labels:             
+    app: demo
+spec:           
+  replicas: 2          
+  selector:              
+    matchLabels:
+      app: demo
+  template:              
+    metadata:           
+      labels:            
+        app: demo
+    spec:                
+      containers:        
+      - name: nginx-dep     
+        image: nginx:1.20.0    
+        volumeMounts:
+        - name: nginx-config
+          mountPath: /etc/nginx
+        ports:
+        - containerPort: 80
+      volumes:
+      - name: nginx-config
+        hostPath:
+          path: /root/zws/conf

@@ -1,0 +1,18 @@
+apiVersion: projectcontour.io/v1
+kind: HTTPProxy
+metadata:
+  name: ingress-zws
+  namespace: zws
+spec:
+  rules:
+  - host: zws.baway.org.cn
+    http:
+      paths:
+      - path: /
+        pathType: Prefix
+        backend:
+          service:
+            name: zwsweb
+            port:
+              number: 80
+  ingressClassName: contour

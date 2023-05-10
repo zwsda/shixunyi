@@ -1,0 +1,35 @@
+apiVersion: apps/v1        
+kind: Deployment        
+metadata:                 
+  name: lnmp-dep            
+  namespace: zws
+  labels:             
+    app: demo
+spec:           
+  replicas: 1          
+  selector:              
+    matchLabels:
+      app: demo
+  template:              
+    metadata:           
+      labels:            
+        app: demo
+    spec:                
+      containers:        
+      - name: lnmp-dep     
+        image: webdevops/php-nginx:7.4    
+        volumeMounts:
+        - name: lnmp-web
+          mountPath: /app
+        - name: lnmp-conf
+          mountPath: /opt/docker/etc/nginx
+        ports:
+        - containerPort: 80
+      volumes:
+      - name: lnmp-web
+        persistentVolumeClaim:
+          claimName: zws-pvc
+      - name: lnmp-conf
+        persistentVolumeClaim:
+          claimName: conf-pvc
+

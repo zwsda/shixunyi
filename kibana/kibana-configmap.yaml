@@ -1,0 +1,12 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: kibana-cm
+  namespace: zws
+data:
+  kibana.yml: |
+    server.name: kibana
+    server.port: 5601
+    server.host: "0.0.0.0"
+    elasticsearch.hosts: [ "http://es-cluster-svc:9200" ]
+    i18n.locale: "zh-CN"
